@@ -1,0 +1,23 @@
+name: CI Pipeline  # Name of the workflow
+
+on: [push, pull_request]  # Run workflow when code is pushed or a PR is created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use an Ubuntu machine to run the workflow
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Pull latest code from the repo
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Project
+        run: mvn clean install  # This builds the project (use relevant build command for your project)
+
+      - name: Run Tests
+        run: mvn test  # This runs test cases
